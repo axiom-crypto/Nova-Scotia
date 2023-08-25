@@ -137,6 +137,7 @@ pub fn create_recursive_circuit(
             .map(|&x| format!("{:?}", x).strip_prefix("0x").unwrap().to_string())
             .collect();
 
+        let start = std::time::Instant::now();
         let res = RecursiveSNARK::prove_step(
             &pp,
             recursive_snark,
@@ -146,6 +147,7 @@ pub fn create_recursive_circuit(
             z0_secondary.clone(),
         );
         assert!(res.is_ok());
+        println!("prove_step: {:?}", start.elapsed());
         recursive_snark = Some(res.unwrap());
     }
     fs::remove_file(witness_generator_output)?;

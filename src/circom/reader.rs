@@ -25,6 +25,7 @@ pub fn generate_witness_from_bin<Fr: PrimeField>(
 ) -> Vec<Fr> {
     let root = current_dir().unwrap();
     let witness_generator_input = root.join("circom_input.json");
+    //println!("{:#?}", witness_input_json);
     fs::write(&witness_generator_input, witness_input_json).unwrap();
 
     let output = Command::new(witness_bin)
